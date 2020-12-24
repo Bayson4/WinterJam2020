@@ -38,7 +38,7 @@ public class RaycastShoot : MonoBehaviour
 
             laserLine.SetPosition(0, gunEnd.position);
 
-            Instantiate(bulletPrefab, gunEnd.position, Quaternion.identity);
+            Instantiate(bulletPrefab, gunEnd.position, this.transform.rotation);
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
             {
                 laserLine.SetPosition(1, hit.point);
