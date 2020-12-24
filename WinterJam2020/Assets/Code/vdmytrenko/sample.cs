@@ -5,15 +5,16 @@ using UnityEngine;
 public class sample : MonoBehaviour
 {
     [SerializeField]
-    private Vector3 startPos;
+    private float speed;
+    public bool flag = true;
     void Start()
     {
         
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if (flag)
+            this.transform.Translate(new Vector3(0,0, speed * Time.deltaTime));
     }
 }
