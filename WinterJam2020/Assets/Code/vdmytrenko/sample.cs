@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class sample : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    private Vector3 startPos;
     void Start()
     {
         
