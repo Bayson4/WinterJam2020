@@ -21,6 +21,7 @@ public class RaycastShoot : MonoBehaviour
         laserLine = GetComponent<LineRenderer>();
         fpsCam = GetComponentInParent<Camera>();
         gunFired = GetComponent<AudioSource>();
+        gunFired.volume = .03f;
     }
 
     void Update()
