@@ -37,7 +37,12 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
-
+        if ((x != 0 || z != 0) && !this.GetComponent<AudioSource>().isPlaying)
+        {
+            this.GetComponent<AudioSource>().Play();
+        }
+        else if (x == 0 && z == 0)
+            this.GetComponent<AudioSource>().Pause();
         controller.Move(move * speed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
