@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RaycastShoot : MonoBehaviour
+public class NewBehaviourScript : MonoBehaviour
 {
     public int gunDamage = 1;
     public float fireRate = .25f;
     public float weaponRange = 50f;
     public float hitForce = 100f;
     public Transform gunEnd;
-    public GameObject bulletDestination;
-    public Transform bulletPrefab;
 
     private Camera fpsCam;
     private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
@@ -37,12 +35,9 @@ public class RaycastShoot : MonoBehaviour
             RaycastHit hit;
 
             laserLine.SetPosition(0, gunEnd.position);
-
-            Instantiate(bulletPrefab, gunEnd.position, this.transform.rotation);
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
             {
                 laserLine.SetPosition(1, hit.point);
-                Instantiate(bulletDestination, hit.point, Quaternion.LookRotation(hit.normal));
             }
             else
             {
