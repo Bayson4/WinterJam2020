@@ -19,6 +19,6 @@ public class BulletController : MonoBehaviour
     public void SpawnBullet(Vector3 position)
     {
         var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
-        bullet.GetComponent<sample>().flag = false;
+        bullet.GetComponent<Bullet>().StopMovement();
     }
 }

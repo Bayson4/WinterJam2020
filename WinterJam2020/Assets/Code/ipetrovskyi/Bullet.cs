@@ -7,12 +7,11 @@ public class Bullet : MonoBehaviour
     public float speed = 8f;
     void Start()
     {
-        
+        this.GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Impulse);
     }
 
     private void FixedUpdate()
     {
-        this.GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Impulse);
     }
     public void StopMovement()
     {
