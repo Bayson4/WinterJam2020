@@ -14,7 +14,7 @@ public class WallTrigger : MonoBehaviour
         if (obj.tag == "bullet")
         {
             controller.SpawnBullet(new Vector3(-obj.transform.position.x, obj.transform.position.y, obj.transform.position.z));
-            obj.GetComponent<sample>().flag = false;
+            obj.GetComponent<Bullet>().StopMovement();
         }
     }
 }

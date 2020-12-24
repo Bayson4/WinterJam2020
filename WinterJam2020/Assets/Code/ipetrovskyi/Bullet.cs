@@ -10,8 +10,12 @@ public class Bullet : MonoBehaviour
         
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        this.GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Impulse);
+    }
+    public void StopMovement()
+    {
+        this.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 }
