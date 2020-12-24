@@ -14,11 +14,13 @@ public class RaycastShoot : MonoBehaviour
     private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
     private LineRenderer laserLine;
     private float nextFire;
+    private AudioSource gunFired;
 
     void Start()
     {
         laserLine = GetComponent<LineRenderer>();
         fpsCam = GetComponentInParent<Camera>();
+        gunFired = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -45,6 +47,7 @@ public class RaycastShoot : MonoBehaviour
 
     private IEnumerator ShotEffect()
     {
+        gunFired.Play();
         laserLine.enabled = true;
         yield return shotDuration;
         laserLine.enabled = false;
