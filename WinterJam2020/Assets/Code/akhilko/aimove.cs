@@ -16,6 +16,7 @@ public class aimove : MonoBehaviour
     float fireRate;
     float nextFire;
     bool direction = true;
+    float defaultSpeed;
 
     public Vector3 posB;
     public Vector3 posC;
@@ -37,6 +38,7 @@ public class aimove : MonoBehaviour
         fireRate = 1f;
         nextFire = Time.time;
         anim = GetComponent<Animator>();
+        defaultSpeed = speed;
     }
 
     // Update is called once per frame
@@ -95,6 +97,7 @@ public class aimove : MonoBehaviour
     {
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(aim - this.transform.position), 5 * Time.deltaTime);
         this.transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        this.speed = defaultSpeed;
         anim.SetBool("isEngaged", false);
     }
 

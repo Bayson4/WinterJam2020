@@ -17,6 +17,8 @@ public class SceneController : MonoBehaviour
     public int duration = 60;
     public int timeRemaining;
     public bool isCountingDown;
+
+    private bool isDead;
     public void BeginCounting()
     {
         if (!isCountingDown)
@@ -41,6 +43,7 @@ public class SceneController : MonoBehaviour
     }
     void Start()
     {
+        isDead = false;
         isCountingDown = false;
         isInverted = false;
         timeRemaining = duration;
@@ -62,7 +65,9 @@ public class SceneController : MonoBehaviour
     private bool IsDeath()
     {
         if (timeRemaining <= 0 || health.HP == 0)
+        {
             return true;
+        }
         else return false;
     }
     private bool IsWon()
@@ -71,7 +76,11 @@ public class SceneController : MonoBehaviour
     }
     private void TriggerLoseScreen()
     {
-        //Time.timeScale = 0;
+        if (!isDead)
+        {
+            Time.timeScale = 0;
+            isDead = true;
+        }
         deathScreen.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
