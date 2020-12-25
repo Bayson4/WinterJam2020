@@ -18,6 +18,7 @@ public class RaycastShoot : MonoBehaviour
     private LineRenderer laserLine;
     private float nextFire;
     private AudioSource gunFired;
+    private AudioSource gunReFired;
     private Ammo ammoController;
 
     [SerializeField]
@@ -27,7 +28,8 @@ public class RaycastShoot : MonoBehaviour
     {
         laserLine = GetComponent<LineRenderer>();
         fpsCam = GetComponentInParent<Camera>();
-        gunFired = GetComponent<AudioSource>();
+        gunFired = GetComponents<AudioSource>()[0];
+        gunReFired = GetComponents<AudioSource>()[1];
         ammoController = GetComponent<Ammo>();
         gunFired.volume = .03f;
     }
@@ -50,6 +52,8 @@ public class RaycastShoot : MonoBehaviour
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
             {
                 laserLine.SetPosition(1, hit.point);
+                Debug.Log(hit.point.ToString());
+                Debug.Log(hit.normal.ToString());
                 Instantiate(bulletDestination, hit.point, Quaternion.LookRotation(hit.normal));
             }
             else
@@ -104,9 +108,16 @@ public class RaycastShoot : MonoBehaviour
         }
         return closest;
     }
-        private IEnumerator ShotEffect()
+    private IEnumerator ShotEffect()
     {
-        gunFired.Play();
+        if (controller.isInverted)
+        {
+            gunReFired.Play();
+        }
+        else
+        {
+            gunFired.Play();
+        }
         muzzleFlash.Play();
         laserLine.enabled = true;
         yield return shotDuration;

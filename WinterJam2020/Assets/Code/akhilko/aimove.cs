@@ -16,12 +16,15 @@ public class aimove : MonoBehaviour
     float fireRate;
     float nextFire;
     bool direction = true;
+    float defaultSpeed;
 
     public Vector3 posB;
     public Vector3 posC;
     public Vector3 posD;
     public float speed;
     public float engageRange;
+
+    static Animator anim;
 
     //[SerializeField] private Transform pfBullet;
     // Start is called before the first frame update
@@ -34,6 +37,8 @@ public class aimove : MonoBehaviour
         playerPos = Dummy.transform.position;
         fireRate = 1f;
         nextFire = Time.time;
+        anim = GetComponent<Animator>();
+        defaultSpeed = speed;
     }
 
     // Update is called once per frame
@@ -51,7 +56,7 @@ public class aimove : MonoBehaviour
                 aim = posB;
             else if ((aim == posB && direction) || (aim == posD))
                 aim = posC;
-            else if (aim == posC && direction && posD!=Vector3.zero)
+            else if ((aim == posC && direction && posD!=Vector3.zero) || (aim == posB && direction && posC == Vector3.zero))
             {
                 aim = posD;
                 direction = false;
@@ -92,12 +97,16 @@ public class aimove : MonoBehaviour
     {
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(aim - this.transform.position), 5 * Time.deltaTime);
         this.transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        this.speed = defaultSpeed;
+        anim.SetBool("isEngaged", false);
     }
 
     void Engage()
     {
         this.transform.LookAt(new Vector3(playerPos.x, this.transform.position.y, playerPos.z));
         this.transform.Translate(Vector3.forward * Time.deltaTime);
+        anim.SetBool("isEngaged", true);
+        this.speed = this.speed * 2;
         Terminate();
     }
 
@@ -105,7 +114,9 @@ public class aimove : MonoBehaviour
     {
         if(Time.time > nextFire)
         {
-            Instantiate(bullet, this.transform.position, this.transform.rotation).GetComponent<Bullet>().Move();
+            var temp = Instantiate(bullet, this.transform.position, this.transform.rotation);
+            temp.GetComponent<Bullet>().Move();
+            temp.GetComponent<Bullet>().enemyBullet = true;
             nextFire = Time.time + fireRate;
         }
     }
