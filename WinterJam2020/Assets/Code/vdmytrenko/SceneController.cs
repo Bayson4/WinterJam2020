@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
+    [SerializeField]
+    RawImage HP;
     public bool isInverted;
 
+    private float step;
     public int duration = 60;
     public int timeRemaining;
     public bool isCountingDown = false;
@@ -21,6 +25,7 @@ public class SceneController : MonoBehaviour
     private void _tick()
     {
         timeRemaining--;
+        HP.rectTransform.localScale = new Vector3(HP.rectTransform.localScale.x, HP.rectTransform.localScale.y - step, HP.rectTransform.localScale.z);  
         if (timeRemaining > 0)
         {
             Invoke("_tick", 1f);
@@ -34,6 +39,7 @@ public class SceneController : MonoBehaviour
     {
         isInverted = false;
         timeRemaining = duration;
+        step = 1f / (float)duration;
     }
 
     // Update is called once per frame
