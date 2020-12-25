@@ -36,56 +36,63 @@ public class RaycastShoot : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire && !controller.isInverted && ammoController.GetCurrentAmount() > 0)
+        if (Time.timeScale != 0)
         {
-            nextFire = Time.time + fireRate;
-            StartCoroutine(ShotEffect());
-
-            Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
-            RaycastHit hit;
-
-            laserLine.SetPosition(0, gunEnd.position);
-
-            ammoController.Decrease();
-            Instantiate(bulletPrefab, gunEnd.position, this.transform.rotation).GetComponent<Bullet>().Move();
-
-            if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
+            if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire && !controller.isInverted && ammoController.GetCurrentAmount() > 0)
             {
-                laserLine.SetPosition(1, hit.point);
-                Debug.Log(hit.point.ToString());
-                Debug.Log(hit.normal.ToString());
-                Instantiate(bulletDestination, hit.point, Quaternion.LookRotation(hit.normal));
+                nextFire = Time.time + fireRate;
+                StartCoroutine(ShotEffect());
+
+                Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+                RaycastHit hit;
+
+                laserLine.SetPosition(0, gunEnd.position);
+
+                ammoController.Decrease();
+                Instantiate(bulletPrefab, gunEnd.position, this.transform.rotation).GetComponent<Bullet>().Move();
+
+                if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
+                {
+                    laserLine.SetPosition(1, hit.point);
+                    //Debug.Log(hit.point.ToString());
+                    //Debug.Log(hit.normal.ToString());
+                    Instantiate(bulletDestination, hit.point, Quaternion.LookRotation(hit.normal));
+                }
+                else
+                {
+                    laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
+                }
             }
-            else
+            if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire && controller.isInverted
+                && ammoController.GetCurrentAmount() < ammoController.max)
             {
-                laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire && controller.isInverted
-            && ammoController.GetCurrentAmount() < ammoController.max)
-        {
-            nextFire = Time.time + fireRate;
+                nextFire = Time.time + fireRate;
 
-            Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
-            RaycastHit hit;
+                Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+                RaycastHit hit;
 
-            laserLine.SetPosition(0, gunEnd.position);
+                laserLine.SetPosition(0, gunEnd.position);
 
-            StartCoroutine(ShotEffect());
-            ammoController.Increase();
-            if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
-            {
-                var closestBullet = FindClosestEnemy(hit.point);
-                var bulletScript = closestBullet.GetComponent<Bullet>();
-                bulletScript.TransformTowards(gunEnd.position);
-                bulletScript.Move();
-            }
-            else
-            {
-                var closestBullet = FindClosestEnemy(gunEnd.position);
-                var bulletScript = closestBullet.GetComponent<Bullet>();
-                bulletScript.TransformTowards(gunEnd.position);
-                bulletScript.Move();
+                if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
+                {
+                    Debug.Log(hit.point.ToString());
+                    var closestBullet = FindClosestEnemy(hit.point);
+                    if (closestBullet != null)
+                    {
+                        var bulletScript = closestBullet.GetComponent<Bullet>();
+                        bulletScript.TransformTowards(gunEnd.position);
+                        bulletScript.Move();
+                        StartCoroutine(ShotEffect());
+                        ammoController.Increase();
+                    }
+                }
+                //else
+                //{
+                //    var closestBullet = FindClosestEnemy(gunEnd.position);
+                //    var bulletScript = closestBullet.GetComponent<Bullet>();
+                //    bulletScript.TransformTowards(gunEnd.position);
+                //    bulletScript.Move();
+                //}
             }
         }
     }
@@ -98,15 +105,18 @@ public class RaycastShoot : MonoBehaviour
         float distance = Mathf.Infinity;
         foreach (GameObject go in gos)
         {
-            Vector3 diff = go.transform.position - position;
-            float curDistance = diff.sqrMagnitude;
+            //Vector3 diff = go.transform.position - position;
+            //float curDistance = diff.sqrMagnitude;
+            float curDistance = Vector3.Distance(go.transform.position, position);
             if (curDistance < distance)
             {
                 closest = go;
                 distance = curDistance;
             }
         }
-        return closest;
+        if (distance < 2f)
+            return closest;
+        else return null;
     }
     private IEnumerator ShotEffect()
     {
