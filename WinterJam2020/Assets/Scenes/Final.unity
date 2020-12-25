@@ -10131,7 +10131,7 @@ MonoBehaviour:
   deathScreen: {fileID: 541604761}
   HP: {fileID: 972636993}
   isInverted: 0
-  duration: 60
+  duration: 3
   timeRemaining: 0
   isCountingDown: 0
 --- !u!1 &1091635996
