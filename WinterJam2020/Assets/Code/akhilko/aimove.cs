@@ -16,12 +16,15 @@ public class aimove : MonoBehaviour
     float fireRate;
     float nextFire;
     bool direction = true;
+    private bool engagePlayer = false;
 
     public Vector3 posB;
     public Vector3 posC;
     public Vector3 posD;
     public float speed;
     public float engageRange;
+
+    static Animator anim;
 
     //[SerializeField] private Transform pfBullet;
     // Start is called before the first frame update
@@ -34,6 +37,7 @@ public class aimove : MonoBehaviour
         playerPos = Dummy.transform.position;
         fireRate = 1f;
         nextFire = Time.time;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -51,7 +55,7 @@ public class aimove : MonoBehaviour
                 aim = posB;
             else if ((aim == posB && direction) || (aim == posD))
                 aim = posC;
-            else if (aim == posC && direction && posD!=Vector3.zero)
+            else if ((aim == posC && direction && posD!=Vector3.zero) || (aim == posB && direction && posC == Vector3.zero))
             {
                 aim = posD;
                 direction = false;
@@ -92,12 +96,14 @@ public class aimove : MonoBehaviour
     {
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(aim - this.transform.position), 5 * Time.deltaTime);
         this.transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        anim.SetBool("isEngaged", false);
     }
 
     void Engage()
     {
         this.transform.LookAt(playerPos);
         this.transform.Translate(Vector3.forward * Time.deltaTime);
+        anim.SetBool("isEngaged", true);
         Terminate();
     }
 
