@@ -42,7 +42,7 @@ public class PauseMenuScript : MonoBehaviour
         public void LoadMenu()
         {
             SceneManager.LoadScene("Main Menu");
-        Time.timeScale = 1f;
+            Time.timeScale = 1f;
             Debug.Log("Load");
         }
     }
