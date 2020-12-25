@@ -20,6 +20,12 @@ public class Bullet : MonoBehaviour
     {
         this.GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Impulse);
     }
+    public void TransformTowards(Vector3 gunEndPos)
+    {
+        var _direction = (gunEndPos - transform.position).normalized;
+        var _lookRotation = Quaternion.LookRotation(_direction);
+        this.GetComponent<Rigidbody>().transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, 100); ;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Finish")
