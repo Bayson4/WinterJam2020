@@ -5,10 +5,35 @@ using UnityEngine;
 public class SceneController : MonoBehaviour
 {
     public bool isInverted;
-    public float timerValue;
+
+    public int duration = 60;
+    public int timeRemaining;
+    public bool isCountingDown = false;
+    public void BeginCounting()
+    {
+        if (!isCountingDown)
+        {
+            isCountingDown = true;
+            Invoke("_tick", 1f);
+        }
+    }
+
+    private void _tick()
+    {
+        timeRemaining--;
+        if (timeRemaining > 0)
+        {
+            Invoke("_tick", 1f);
+        }
+        else
+        {
+            isCountingDown = false;
+        }
+    }
     void Start()
     {
         isInverted = false;
+        timeRemaining = duration;
     }
 
     // Update is called once per frame
@@ -25,7 +50,7 @@ public class SceneController : MonoBehaviour
     }
     private bool IsDeath()
     {
-        if (timerValue <= 0)
+        if (timeRemaining <= 0)
             return true;
         else return false;
     }
