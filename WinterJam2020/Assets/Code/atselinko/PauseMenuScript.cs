@@ -45,4 +45,5 @@ public class PauseMenuScript : MonoBehaviour
             Time.timeScale = 1f;
             Debug.Log("Load");
         }
+
     }
