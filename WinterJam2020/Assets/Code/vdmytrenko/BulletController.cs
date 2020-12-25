@@ -6,6 +6,8 @@ public class BulletController : MonoBehaviour
 {
     [SerializeField]
     private GameObject bulletPrefab;
+
+    GameObject bullet;
     void Start()
     {
         
@@ -18,7 +20,15 @@ public class BulletController : MonoBehaviour
 
     public void SpawnBullet(Vector3 position)
     {
-        var bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
+        bullet = Instantiate(bulletPrefab, position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().inverted = true;
+        bullet.GetComponent<Bullet>().spawned = true;
+        Invoke("delay", 1f);
         //bullet.GetComponent<Bullet>().StopMovement();
+    }
+
+    private void delay()
+    {
+        bullet.GetComponent<Bullet>().spawned = false;
     }
 }

@@ -19,7 +19,6 @@ public class ChangeToReverse : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("123");
             controller.ChangeToInverted();
             controller.BeginCounting();
             Destroy(this.gameObject);
