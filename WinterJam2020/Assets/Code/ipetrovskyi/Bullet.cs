@@ -35,8 +35,9 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy" && !enemyBullet)
         {
-            Destroy(collision.gameObject);
-            Destroy(this.gameObject);
+            collision.gameObject.GetComponent<aimove>().Death();
+            Destroy(collision.gameObject, 2f);
+            Destroy(this.gameObject, 2f);
         }
         if (collision.gameObject.tag == "Player" && enemyBullet)
         {
@@ -53,7 +54,8 @@ public class Bullet : MonoBehaviour
         }
         else 
         {
-            Instantiate(impactEffect, this.GetComponent<Rigidbody>().transform.position, transform.localRotation);
+            if(!enemyBullet)
+                Instantiate(impactEffect, this.GetComponent<Rigidbody>().transform.position, transform.localRotation);
         }
     }
 }

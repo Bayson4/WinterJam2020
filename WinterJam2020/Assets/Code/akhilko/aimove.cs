@@ -121,6 +121,7 @@ public class aimove : MonoBehaviour
             var temp = Instantiate(bullet, this.transform.position, this.transform.rotation);
             temp.GetComponent<Bullet>().Move();
             temp.GetComponent<Bullet>().enemyBullet = true;
+            temp.GetComponent<Bullet>().inverted = true;
             nextFire = Time.time + fireRate;
         }
     }
@@ -131,7 +132,7 @@ public class aimove : MonoBehaviour
         Terminate();
     }
 
-    void Death()
+    public void Death()
     {
         anim.SetBool("isDead", true);
     }
