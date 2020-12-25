@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class aimove : MonoBehaviour
 {
-    public Vector3 posA;
-    public Vector3 posB;
-    public Vector3 aim;
-    public float speed;
-    public float distance;
-
-    public float distToTarget;
+    private Vector3 posA;
+    private Vector3 aim;
+    private float distance;
+    private Vector3 playerPos;
+    private float distToTarget;
     GameObject Dummy;
     RaycastHit hit;
-    public Vector3 playerPos;
-
     [SerializeField]
     GameObject bullet;
     float fireRate;
     float nextFire;
 
+    public Vector3 posB;
+    public float speed;
+    public float engageRange;
 
     //[SerializeField] private Transform pfBullet;
     // Start is called before the first frame update
@@ -56,7 +55,7 @@ public class aimove : MonoBehaviour
     void Behaviour()
     {
         GetDistance();
-        if (distToTarget <= 5.5)
+        if (distToTarget <= engageRange)
         {
             Physics.Linecast(this.transform.position, playerPos, out hit);
             if (hit.collider.CompareTag("Player"))
