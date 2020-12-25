@@ -8,6 +8,8 @@ public class SceneController : MonoBehaviour
     [SerializeField]
     HealthSystem health;
     [SerializeField]
+    GameObject deathScreen;
+    [SerializeField]
     RawImage HP;
     public bool isInverted;
 
@@ -69,7 +71,8 @@ public class SceneController : MonoBehaviour
     private void TriggerLoseScreen()
     {
         Time.timeScale = 0;
-        //
+        deathScreen.SetActive(true);
+        Cursor.visible = true;
     }
     private void TriggerVictoryScreen()
     {
