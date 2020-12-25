@@ -16,7 +16,6 @@ public class aimove : MonoBehaviour
     float fireRate;
     float nextFire;
     bool direction = true;
-    private bool engagePlayer = false;
 
     public Vector3 posB;
     public Vector3 posC;
@@ -104,6 +103,7 @@ public class aimove : MonoBehaviour
         this.transform.LookAt(new Vector3(playerPos.x, this.transform.position.y, playerPos.z));
         this.transform.Translate(Vector3.forward * Time.deltaTime);
         anim.SetBool("isEngaged", true);
+        this.speed = this.speed * 2;
         Terminate();
     }
 
