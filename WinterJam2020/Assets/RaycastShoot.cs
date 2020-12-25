@@ -19,6 +19,9 @@ public class RaycastShoot : MonoBehaviour
     private float nextFire;
     private AudioSource gunFired;
 
+    [SerializeField]
+    SceneController controller;
+
     void Start()
     {
         laserLine = GetComponent<LineRenderer>();
@@ -29,7 +32,7 @@ public class RaycastShoot : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire && !controller.isInverted)
         {
             nextFire = Time.time + fireRate;
             StartCoroutine(ShotEffect());
@@ -50,7 +53,7 @@ public class RaycastShoot : MonoBehaviour
                 laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && Time.time > nextFire)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire && controller.isInverted)
         {
             nextFire = Time.time + fireRate;
             StartCoroutine(ShotEffect());

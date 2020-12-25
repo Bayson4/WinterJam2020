@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 8f;
+    public bool inverted = false;
+    public bool spawned = false;
     void Start()
     {
     }
@@ -28,6 +30,10 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (inverted && !spawned)
+        {
+            Destroy(this.gameObject);
+        }
         if (collision.gameObject.tag == "Finish")
             Destroy(this.gameObject);
     }
