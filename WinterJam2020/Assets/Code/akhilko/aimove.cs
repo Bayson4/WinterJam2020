@@ -28,7 +28,6 @@ public class aimove : MonoBehaviour
 
     static Animator anim;
 
-    //[SerializeField] private Transform pfBullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -120,7 +119,7 @@ public class aimove : MonoBehaviour
     {
         if(Time.time > nextFire)
         {
-            var temp = Instantiate(bullet, this.transform.position, this.transform.rotation);
+            var temp = Instantiate(bullet, GameObject.FindGameObjectWithTag("npcgun").transform.position, GameObject.FindGameObjectWithTag("npcgun").transform.rotation);
             temp.GetComponent<Bullet>().Move();
             temp.GetComponent<Bullet>().enemyBullet = true;
             temp.GetComponent<Bullet>().inverted = true;
