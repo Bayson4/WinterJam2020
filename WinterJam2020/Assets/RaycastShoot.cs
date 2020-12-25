@@ -18,6 +18,7 @@ public class RaycastShoot : MonoBehaviour
     private LineRenderer laserLine;
     private float nextFire;
     private AudioSource gunFired;
+    private Ammo ammoController;
 
     [SerializeField]
     SceneController controller;
@@ -27,12 +28,13 @@ public class RaycastShoot : MonoBehaviour
         laserLine = GetComponent<LineRenderer>();
         fpsCam = GetComponentInParent<Camera>();
         gunFired = GetComponent<AudioSource>();
+        ammoController = GetComponent<Ammo>();
         gunFired.volume = .03f;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire && !controller.isInverted)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire && !controller.isInverted && ammoController.GetCurrentAmount() > 0)
         {
             nextFire = Time.time + fireRate;
             StartCoroutine(ShotEffect());
@@ -42,6 +44,7 @@ public class RaycastShoot : MonoBehaviour
 
             laserLine.SetPosition(0, gunEnd.position);
 
+            ammoController.Decrease();
             Instantiate(bulletPrefab, gunEnd.position, this.transform.rotation).GetComponent<Bullet>().Move();
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
             {
@@ -53,32 +56,31 @@ public class RaycastShoot : MonoBehaviour
                 laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire && controller.isInverted)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire && controller.isInverted
+            && ammoController.GetCurrentAmount() < ammoController.max)
         {
             nextFire = Time.time + fireRate;
-            StartCoroutine(ShotEffect());
 
             Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
 
             laserLine.SetPosition(0, gunEnd.position);
 
-            //Instantiate(bulletPrefab, gunEnd.position, this.transform.rotation).GetComponent<Bullet>().Move();
+            StartCoroutine(ShotEffect());
+            ammoController.Increase();
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
             {
                 var closestBullet = FindClosestEnemy(hit.point);
                 var bulletScript = closestBullet.GetComponent<Bullet>();
-                //Debug.Log(gunEnd.position.ToString());
                 bulletScript.TransformTowards(gunEnd.position);
                 bulletScript.Move();
-                //Destroy(closestBullet);
-                //laserLine.SetPosition(1, hit.point);
-                //Instantiate(bulletDestination, hit.point, Quaternion.LookRotation(hit.normal));
             }
             else
             {
-                Debug.Log("CANT FIND THE BULLET");
-                //laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * weaponRange));
+                var closestBullet = FindClosestEnemy(gunEnd.position);
+                var bulletScript = closestBullet.GetComponent<Bullet>();
+                bulletScript.TransformTowards(gunEnd.position);
+                bulletScript.Move();
             }
         }
     }
