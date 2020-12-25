@@ -11,7 +11,6 @@ public class RaycastShoot : MonoBehaviour
     public Transform gunEnd;
     public GameObject bulletDestination;
     public ParticleSystem muzzleFlash;
-    public GameObject impactEffect;
     public Transform bulletPrefab;
 
     private Camera fpsCam;
@@ -52,7 +51,6 @@ public class RaycastShoot : MonoBehaviour
             {
                 laserLine.SetPosition(1, hit.point);
                 Instantiate(bulletDestination, hit.point, Quaternion.LookRotation(hit.normal));
-                Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             }
             else
             {
