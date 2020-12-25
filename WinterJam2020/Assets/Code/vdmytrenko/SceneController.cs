@@ -13,6 +13,12 @@ public class SceneController : MonoBehaviour
     RawImage HP;
     public bool isInverted;
 
+    [SerializeField]
+    GameObject victory;
+
+    [SerializeField]
+    private List<aimove> ais;
+
     private float step;
     public int duration = 60;
     public int timeRemaining;
@@ -55,7 +61,7 @@ public class SceneController : MonoBehaviour
     {
         if (IsDeath())
             TriggerLoseScreen();
-        if (IsWon())
+        if (IsWon() && Time.timeScale != 0)
             TriggerVictoryScreen();
     }
     public void ChangeToInverted()
@@ -72,7 +78,10 @@ public class SceneController : MonoBehaviour
     }
     private bool IsWon()
     {
-        return false;
+        for(int i = 0; i < ais.Count; i++)
+            if(ais[i].alive)
+                return false;
+        return true;
     }
     private void TriggerLoseScreen()
     {
@@ -87,7 +96,13 @@ public class SceneController : MonoBehaviour
     }
     private void TriggerVictoryScreen()
     {
-        //Time.timeScale = 0;
-        //
+        Debug.Log("WIN");
+        if (Time.timeScale != 0)
+        {
+            Time.timeScale = 0;
+            victory.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }
