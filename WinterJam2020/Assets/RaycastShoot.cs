@@ -10,6 +10,7 @@ public class RaycastShoot : MonoBehaviour
     public float hitForce = 100f;
     public Transform gunEnd;
     public GameObject bulletDestination;
+    public ParticleSystem muzzleFlash;
     public Transform bulletPrefab;
 
     private Camera fpsCam;
@@ -54,6 +55,7 @@ public class RaycastShoot : MonoBehaviour
     private IEnumerator ShotEffect()
     {
         gunFired.Play();
+        muzzleFlash.Play();
         laserLine.enabled = true;
         yield return shotDuration;
         laserLine.enabled = false;
