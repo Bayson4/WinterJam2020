@@ -15,8 +15,11 @@ public class aimove : MonoBehaviour
     GameObject bullet;
     float fireRate;
     float nextFire;
+    bool direction = true;
 
     public Vector3 posB;
+    public Vector3 posC;
+    public Vector3 posD;
     public float speed;
     public float engageRange;
 
@@ -46,7 +49,22 @@ public class aimove : MonoBehaviour
         {
             if (aim == posA)
                 aim = posB;
-            else aim = posA;
+            else if (aim == posB && direction)
+                aim = posC;
+            else if (aim == posC && direction)
+            {
+                aim = posD;
+                direction = false;
+            }
+            else if (aim == posD)
+                aim = posC;
+            else if (aim == posC && !direction)
+                aim = posB;
+            else if (aim == posB && !direction)
+            {
+                aim = posA;
+                direction = true;
+            }
         }
         playerPos = Dummy.transform.position;
         distToTarget = Vector3.Distance(this.transform.position, playerPos);
@@ -72,7 +90,7 @@ public class aimove : MonoBehaviour
     void Patrol()
     {
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(aim - this.transform.position), 5 * Time.deltaTime);
-        this.transform.Translate(Vector3.forward * Time.deltaTime);
+        this.transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 
     void Engage()
