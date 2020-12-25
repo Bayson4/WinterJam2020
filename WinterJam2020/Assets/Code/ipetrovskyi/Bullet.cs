@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public float speed = 8f;
     public bool inverted = false;
     public bool spawned = false;
+    public bool enemyBullet = false;
     public GameObject impactEffect;
     void Start()
     {
@@ -32,6 +33,16 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Enemy" && !enemyBullet)
+        {
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+        }
+        if (collision.gameObject.tag == "Player" && enemyBullet)
+        {
+            collision.gameObject.GetComponent<HealthSystem>().Death();
+            Destroy(this.gameObject);
+        }
         if (inverted && !spawned)
         {
             Destroy(this.gameObject);

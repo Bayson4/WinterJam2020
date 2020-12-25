@@ -105,7 +105,9 @@ public class aimove : MonoBehaviour
     {
         if(Time.time > nextFire)
         {
-            Instantiate(bullet, this.transform.position, this.transform.rotation).GetComponent<Bullet>().Move();
+            var temp = Instantiate(bullet, this.transform.position, this.transform.rotation);
+            temp.GetComponent<Bullet>().Move();
+            temp.GetComponent<Bullet>().enemyBullet = true;
             nextFire = Time.time + fireRate;
         }
     }
