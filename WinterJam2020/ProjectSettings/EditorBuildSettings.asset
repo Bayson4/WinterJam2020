@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 12d1180b01eac1e4692782d95f15dacc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/atselinko.unity
     guid: 19e3e5e06b81c5d43b5e990cf069ebbc
+  - enabled: 1
+    path: Assets/Scenes/Final.unity
+    guid: 1ad3df39508ffaa47a5954a2a826738c
   m_configObjects: {}
