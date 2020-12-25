@@ -20,4 +20,9 @@ public class Bullet : MonoBehaviour
     {
         this.GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Impulse);
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Finish")
+            Destroy(this.gameObject);
+    }
 }

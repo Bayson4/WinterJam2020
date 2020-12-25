@@ -10,6 +10,7 @@ public class RaycastShoot : MonoBehaviour
     public float hitForce = 100f;
     public Transform gunEnd;
     public GameObject bulletDestination;
+    public ParticleSystem muzzleFlash;
     public Transform bulletPrefab;
 
     private Camera fpsCam;
@@ -28,7 +29,7 @@ public class RaycastShoot : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             StartCoroutine(ShotEffect());
@@ -54,6 +55,7 @@ public class RaycastShoot : MonoBehaviour
     private IEnumerator ShotEffect()
     {
         gunFired.Play();
+        muzzleFlash.Play();
         laserLine.enabled = true;
         yield return shotDuration;
         laserLine.enabled = false;
