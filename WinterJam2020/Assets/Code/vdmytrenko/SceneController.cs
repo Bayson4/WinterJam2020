@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class SceneController : MonoBehaviour
 {
     [SerializeField]
+    HealthSystem health;
+    [SerializeField]
     RawImage HP;
     public bool isInverted;
 
@@ -56,7 +58,7 @@ public class SceneController : MonoBehaviour
     }
     private bool IsDeath()
     {
-        if (timeRemaining <= 0)
+        if (timeRemaining <= 0 || health.HP == 0)
             return true;
         else return false;
     }

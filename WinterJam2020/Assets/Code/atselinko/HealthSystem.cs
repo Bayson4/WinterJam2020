@@ -7,7 +7,7 @@ public class HealthSystem : MonoBehaviour
     public int HP = 100;
     
 
-    private void Death()
+    public void Death()
     {
         HP -= 100;
     }
