@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    public int HP;
-
-    public void Start()
-    {
-        HP = 100;
-    }
+    public int HP = 100;
+    
 
     public void Death()
     {
