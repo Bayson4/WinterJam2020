@@ -497,7 +497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599756770}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 4}
+  m_LocalPosition: {x: -4, y: 0, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -785,6 +785,7 @@ MonoBehaviour:
   distance: 0
   distToTarget: 0
   playerPos: {x: 0, y: 0, z: 0}
+  bullet: {fileID: 3271983464589833285, guid: 5670ff98a7ace4747a33d5ca5fac2df8, type: 3}
 --- !u!1 &1346622164
 GameObject:
   m_ObjectHideFlags: 0

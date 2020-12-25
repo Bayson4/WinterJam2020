@@ -14,6 +14,14 @@ public class aimove : MonoBehaviour
     GameObject Dummy;
     RaycastHit hit;
     public Vector3 playerPos;
+
+    [SerializeField]
+    GameObject bullet;
+    float fireRate;
+    float nextFire;
+
+
+    //[SerializeField] private Transform pfBullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +30,8 @@ public class aimove : MonoBehaviour
         aim = posB;
         Dummy = GameObject.Find("DummyPlayer");
         playerPos = Dummy.transform.position;
+        fireRate = 1f;
+        nextFire = Time.time;
     }
 
     // Update is called once per frame
@@ -70,5 +80,15 @@ public class aimove : MonoBehaviour
     {
         this.transform.LookAt(playerPos);
         this.transform.Translate(Vector3.forward * Time.deltaTime);
+        Terminate();
+    }
+
+    void Terminate()
+    {
+        if(Time.time > nextFire)
+        {
+            Instantiate(bullet, this.transform.position, Quaternion.identity);
+            nextFire = Time.time + fireRate;
+        }
     }
 }
