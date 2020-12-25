@@ -165,6 +165,7 @@ MonoBehaviour:
   posD: {x: 0, y: 0, z: 0}
   speed: 2
   engageRange: 12
+  shootingRange: 5
 --- !u!1 &92071705
 GameObject:
   m_ObjectHideFlags: 0
