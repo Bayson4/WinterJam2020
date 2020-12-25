@@ -23,6 +23,7 @@ public class aimove : MonoBehaviour
     public Vector3 posD;
     public float speed;
     public float engageRange;
+    public float shootingRange;
 
     static Animator anim;
 
@@ -84,7 +85,10 @@ public class aimove : MonoBehaviour
             Physics.Linecast(this.transform.position, playerPos, out hit);
             if (hit.collider.CompareTag("Player"))
             {
-                Engage();
+                if (distToTarget >= shootingRange)
+                    Engage();
+                else
+                    ShootTarget();
             }
             else
                 Patrol();
@@ -99,15 +103,15 @@ public class aimove : MonoBehaviour
         this.transform.Translate(Vector3.forward * Time.deltaTime * speed);
         this.speed = defaultSpeed;
         anim.SetBool("isEngaged", false);
+        anim.SetBool("isAtRange", false);
     }
 
     void Engage()
     {
         this.transform.LookAt(new Vector3(playerPos.x, this.transform.position.y, playerPos.z));
-        this.transform.Translate(Vector3.forward * Time.deltaTime);
+        this.transform.Translate(Vector3.forward * Time.deltaTime * speed * 2);
         anim.SetBool("isEngaged", true);
-        this.speed = this.speed * 2;
-        Terminate();
+        anim.SetBool("isAtRange", false);
     }
 
     void Terminate()
@@ -119,5 +123,16 @@ public class aimove : MonoBehaviour
             temp.GetComponent<Bullet>().enemyBullet = true;
             nextFire = Time.time + fireRate;
         }
+    }
+
+    void ShootTarget()
+    {
+        anim.SetBool("isAtRange", true);
+        Terminate();
+    }
+
+    void Death()
+    {
+        anim.SetBool("isDead", true);
     }
 }
