@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: WinterJam2020
-  defaultCursor: {fileID: 2800000, guid: dc8b8dd8278780146a3658f508683c1c, type: 3}
+  defaultCursor: {fileID: 2800000, guid: b54d34ca6a1013e4fa69e048899182d1, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
