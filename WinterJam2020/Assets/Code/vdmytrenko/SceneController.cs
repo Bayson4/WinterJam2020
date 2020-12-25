@@ -73,6 +73,7 @@ public class SceneController : MonoBehaviour
         Time.timeScale = 0;
         deathScreen.SetActive(true);
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     private void TriggerVictoryScreen()
     {

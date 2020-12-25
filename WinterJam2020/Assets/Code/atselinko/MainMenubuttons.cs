@@ -8,8 +8,8 @@ public class MainMenubuttons : MonoBehaviour
    
     public void NewGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 
