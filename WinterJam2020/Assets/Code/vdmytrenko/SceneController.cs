@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class SceneController : MonoBehaviour
 {
     [SerializeField]
+    HealthSystem health;
+    [SerializeField]
+    GameObject deathScreen;
+    [SerializeField]
     RawImage HP;
     public bool isInverted;
 
@@ -56,7 +60,7 @@ public class SceneController : MonoBehaviour
     }
     private bool IsDeath()
     {
-        if (timeRemaining <= 0)
+        if (timeRemaining <= 0 || health.HP == 0)
             return true;
         else return false;
     }
@@ -67,7 +71,9 @@ public class SceneController : MonoBehaviour
     private void TriggerLoseScreen()
     {
         Time.timeScale = 0;
-        //
+        deathScreen.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     private void TriggerVictoryScreen()
     {

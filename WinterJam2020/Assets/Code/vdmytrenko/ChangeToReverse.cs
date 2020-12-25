@@ -6,6 +6,8 @@ public class ChangeToReverse : MonoBehaviour
 {
     [SerializeField]
     private SceneController controller;
+    [SerializeField]
+    private GameObject wall;
     void Start()
     {
         
@@ -21,6 +23,7 @@ public class ChangeToReverse : MonoBehaviour
         {
             controller.ChangeToInverted();
             controller.BeginCounting();
+            wall.SetActive(true);
             Destroy(this.gameObject);
         }
     }

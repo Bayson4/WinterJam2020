@@ -96,7 +96,7 @@ public class aimove : MonoBehaviour
 
     void Engage()
     {
-        this.transform.LookAt(playerPos);
+        this.transform.LookAt(new Vector3(playerPos.x, this.transform.position.y, playerPos.z));
         this.transform.Translate(Vector3.forward * Time.deltaTime);
         Terminate();
     }
