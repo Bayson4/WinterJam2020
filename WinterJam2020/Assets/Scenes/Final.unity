@@ -514,7 +514,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 48031348}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.2
   m_Height: 1.5
   m_Direction: 1
@@ -555,10 +555,23 @@ MonoBehaviour:
   posB: {x: 27, y: 0.35, z: -14}
   posC: {x: 28, y: 0.35, z: -20}
   posD: {x: 0, y: 0, z: 0}
-  speed: 1
-  engageRange: 15
+  speed: 2.4
+  engageRange: 20
   shootingRange: 5
   alive: 1
+--- !u!65 &48031353
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48031348}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 1.7, z: 0.5}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &56044859
 GameObject:
   m_ObjectHideFlags: 0
@@ -4202,8 +4215,8 @@ MonoBehaviour:
   posB: {x: 27, y: 0.25, z: 17}
   posC: {x: 35, y: 0.25, z: 17}
   posD: {x: 35, y: 0.25, z: 23}
-  speed: 1
-  engageRange: 15
+  speed: 2.4
+  engageRange: 20
   shootingRange: 5
   alive: 1
 --- !u!95 &455009283
@@ -4234,8 +4247,8 @@ CapsuleCollider:
   m_GameObject: {fileID: 455009281}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.3
+  m_Enabled: 0
+  m_Radius: 0.2
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.88, z: 0}
@@ -4244,6 +4257,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1e4d13585d9df3846ad9306461e446f2, type: 3}
   m_PrefabInstance: {fileID: 455009280}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &455009286
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455009281}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 1.7, z: 0.5}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &459912412
 GameObject:
   m_ObjectHideFlags: 0
@@ -8451,8 +8477,8 @@ MonoBehaviour:
   posB: {x: 48.2, y: 0.25, z: -19}
   posC: {x: 39, y: 0.25, z: -19}
   posD: {x: 0, y: 0, z: 0}
-  speed: 1
-  engageRange: 15
+  speed: 2.4
+  engageRange: 20
   shootingRange: 5
   alive: 1
 --- !u!95 &772929839
@@ -8483,8 +8509,8 @@ CapsuleCollider:
   m_GameObject: {fileID: 772929837}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.3
+  m_Enabled: 0
+  m_Radius: 0.2
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.88, z: 0}
@@ -8493,6 +8519,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1e4d13585d9df3846ad9306461e446f2, type: 3}
   m_PrefabInstance: {fileID: 772929836}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &772929842
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772929837}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 1.7, z: 0.5}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &780971120
 GameObject:
   m_ObjectHideFlags: 0
@@ -11550,7 +11589,9 @@ MonoBehaviour:
   victory: {fileID: 1840332060}
   ais:
   - {fileID: 48031352}
-  duration: 40
+  - {fileID: 772929838}
+  - {fileID: 455009282}
+  duration: 45
   timeRemaining: 0
   isCountingDown: 0
 --- !u!1 &1091635996
@@ -14275,7 +14316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8616f76c203d991418a330e792097032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max: 5
+  max: 6
   bullets: {fileID: 1844236007}
   bulletIcon: {fileID: 2220314925932281732, guid: 3536a2bd4c8a6fe44861dc9257d19cda, type: 3}
 --- !u!82 &1346125032

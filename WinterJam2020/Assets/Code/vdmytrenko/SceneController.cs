@@ -96,13 +96,8 @@ public class SceneController : MonoBehaviour
     }
     private void TriggerVictoryScreen()
     {
-        Debug.Log("WIN");
-        if (Time.timeScale != 0)
-        {
-            Time.timeScale = 0;
             victory.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-        }
     }
 }
