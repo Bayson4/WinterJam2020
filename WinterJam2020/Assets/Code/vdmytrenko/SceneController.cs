@@ -6,13 +6,17 @@ using UnityEngine.UI;
 public class SceneController : MonoBehaviour
 {
     [SerializeField]
+    HealthSystem health;
+    [SerializeField]
+    GameObject deathScreen;
+    [SerializeField]
     RawImage HP;
     public bool isInverted;
 
     private float step;
     public int duration = 60;
     public int timeRemaining;
-    public bool isCountingDown = false;
+    public bool isCountingDown;
     public void BeginCounting()
     {
         if (!isCountingDown)
@@ -37,6 +41,7 @@ public class SceneController : MonoBehaviour
     }
     void Start()
     {
+        isCountingDown = false;
         isInverted = false;
         timeRemaining = duration;
         step = 1f / (float)duration;
@@ -56,7 +61,7 @@ public class SceneController : MonoBehaviour
     }
     private bool IsDeath()
     {
-        if (timeRemaining <= 0)
+        if (timeRemaining <= 0 || health.HP == 0)
             return true;
         else return false;
     }
@@ -66,8 +71,10 @@ public class SceneController : MonoBehaviour
     }
     private void TriggerLoseScreen()
     {
-        Time.timeScale = 0;
-        //
+        //Time.timeScale = 0;
+        deathScreen.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     private void TriggerVictoryScreen()
     {

@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
+
 {
     public float speed = 8f;
     public bool inverted = false;
     public bool spawned = false;
+    public bool enemyBullet = false;
+    public GameObject impactEffect;
     void Start()
     {
     }
@@ -30,11 +33,27 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Enemy" && !enemyBullet)
+        {
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+        }
+        if (collision.gameObject.tag == "Player" && enemyBullet)
+        {
+            collision.gameObject.GetComponent<HealthSystem>().Death();
+            Destroy(this.gameObject);
+        }
         if (inverted && !spawned)
         {
             Destroy(this.gameObject);
         }
-        if (collision.gameObject.tag == "Finish")
+        else if (collision.gameObject.tag == "Finish")
+        {
             Destroy(this.gameObject);
+        }
+        else 
+        {
+            Instantiate(impactEffect, this.GetComponent<Rigidbody>().transform.position, transform.localRotation);
+        }
     }
 }

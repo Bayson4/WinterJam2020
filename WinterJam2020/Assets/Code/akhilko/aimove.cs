@@ -101,7 +101,7 @@ public class aimove : MonoBehaviour
 
     void Engage()
     {
-        this.transform.LookAt(playerPos);
+        this.transform.LookAt(new Vector3(playerPos.x, this.transform.position.y, playerPos.z));
         this.transform.Translate(Vector3.forward * Time.deltaTime);
         anim.SetBool("isEngaged", true);
         Terminate();
@@ -111,7 +111,9 @@ public class aimove : MonoBehaviour
     {
         if(Time.time > nextFire)
         {
-            Instantiate(bullet, this.transform.position, this.transform.rotation).GetComponent<Bullet>().Move();
+            var temp = Instantiate(bullet, this.transform.position, this.transform.rotation);
+            temp.GetComponent<Bullet>().Move();
+            temp.GetComponent<Bullet>().enemyBullet = true;
             nextFire = Time.time + fireRate;
         }
     }
