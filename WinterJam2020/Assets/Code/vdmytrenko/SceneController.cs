@@ -66,7 +66,6 @@ public class SceneController : MonoBehaviour
     {
         if (timeRemaining <= 0 || health.HP == 0)
         {
-            isDead = true;
             return true;
         }
         else return false;
@@ -77,8 +76,11 @@ public class SceneController : MonoBehaviour
     }
     private void TriggerLoseScreen()
     {
-        if(!isDead)
+        if (!isDead)
+        {
             Time.timeScale = 0;
+            isDead = true;
+        }
         deathScreen.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
