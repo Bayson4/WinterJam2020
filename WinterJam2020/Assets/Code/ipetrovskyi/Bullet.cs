@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
     public float speed = 8f;
     void Start()
     {
-        this.GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Impulse);
     }
 
     private void FixedUpdate()
@@ -16,5 +15,9 @@ public class Bullet : MonoBehaviour
     public void StopMovement()
     {
         this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+    public void Move()
+    {
+        this.GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Impulse);
     }
 }

@@ -13,8 +13,9 @@ public class WallTrigger : MonoBehaviour
         var obj = collision.gameObject;
         if (obj.tag == "bullet")
         {
-            controller.SpawnBullet(new Vector3(-obj.transform.position.x, obj.transform.position.y, obj.transform.position.z));
             obj.GetComponent<Bullet>().StopMovement();
+            obj.GetComponent<Rigidbody>().isKinematic = true;
+            controller.SpawnBullet(new Vector3(-obj.transform.position.x, obj.transform.position.y, obj.transform.position.z));
         }
     }
 }
