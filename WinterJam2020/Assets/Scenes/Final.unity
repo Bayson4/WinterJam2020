@@ -6308,6 +6308,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5427229763121795941, guid: 4cf638d67b81cf647b09e918738369c3, type: 3}
+      propertyPath: mousesensitivity
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 5427229763163816793, guid: 4cf638d67b81cf647b09e918738369c3, type: 3}
       propertyPath: m_Name
       value: FPS Player
