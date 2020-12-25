@@ -90,7 +90,7 @@ public class aimove : MonoBehaviour
     void Patrol()
     {
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(aim - this.transform.position), 5 * Time.deltaTime);
-        this.transform.Translate(Vector3.forward * Time.deltaTime);
+        this.transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 
     void Engage()
