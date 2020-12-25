@@ -17,7 +17,10 @@ public class aimove : MonoBehaviour
     float nextFire;
     bool direction = true;
     float defaultSpeed;
-    
+
+    [SerializeField]
+    GameObject npcgun;
+
     public Vector3 posB;
     public Vector3 posC;
     public Vector3 posD;
@@ -26,7 +29,7 @@ public class aimove : MonoBehaviour
     public float shootingRange;
     public bool alive = true;
 
-    static Animator anim;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +41,7 @@ public class aimove : MonoBehaviour
         playerPos = Dummy.transform.position;
         fireRate = 1f;
         nextFire = Time.time;
-        anim = GetComponent<Animator>();
+        anim = this.GetComponent<Animator>();
         defaultSpeed = speed;
     }
 
@@ -119,7 +122,7 @@ public class aimove : MonoBehaviour
     {
         if(Time.time > nextFire)
         {
-            var temp = Instantiate(bullet, GameObject.FindGameObjectWithTag("npcgun").transform.position, GameObject.FindGameObjectWithTag("npcgun").transform.rotation);
+            var temp = Instantiate(bullet, npcgun.transform.position, transform.rotation);
             temp.GetComponent<Bullet>().Move();
             temp.GetComponent<Bullet>().enemyBullet = true;
             temp.GetComponent<Bullet>().inverted = true;

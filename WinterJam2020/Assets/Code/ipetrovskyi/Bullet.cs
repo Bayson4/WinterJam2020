@@ -58,4 +58,13 @@ public class Bullet : MonoBehaviour
                 Instantiate(impactEffect, this.GetComponent<Rigidbody>().transform.position, transform.localRotation);
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("hit");
+        if (other.tag == "Player" && enemyBullet)
+        {
+            other.gameObject.GetComponent<HealthSystem>().Death();
+            Destroy(this.gameObject);
+        }
+    }
 }
