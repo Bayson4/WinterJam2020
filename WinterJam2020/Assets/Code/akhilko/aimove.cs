@@ -17,13 +17,14 @@ public class aimove : MonoBehaviour
     float nextFire;
     bool direction = true;
     float defaultSpeed;
-
+    
     public Vector3 posB;
     public Vector3 posC;
     public Vector3 posD;
     public float speed;
     public float engageRange;
     public float shootingRange;
+    public bool alive = true;
 
     static Animator anim;
 
@@ -45,6 +46,7 @@ public class aimove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (alive)
         Behaviour();
     }
 
@@ -134,6 +136,7 @@ public class aimove : MonoBehaviour
 
     public void Death()
     {
+        alive = false;
         anim.SetBool("isDead", true);
     }
 }
