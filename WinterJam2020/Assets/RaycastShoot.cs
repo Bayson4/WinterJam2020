@@ -11,6 +11,7 @@ public class RaycastShoot : MonoBehaviour
     public Transform gunEnd;
     public GameObject bulletDestination;
     public ParticleSystem muzzleFlash;
+    public GameObject impactEffect;
     public Transform bulletPrefab;
 
     private Camera fpsCam;
@@ -46,10 +47,12 @@ public class RaycastShoot : MonoBehaviour
 
             ammoController.Decrease();
             Instantiate(bulletPrefab, gunEnd.position, this.transform.rotation).GetComponent<Bullet>().Move();
+
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
             {
                 laserLine.SetPosition(1, hit.point);
                 Instantiate(bulletDestination, hit.point, Quaternion.LookRotation(hit.normal));
+                Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             }
             else
             {
@@ -103,8 +106,7 @@ public class RaycastShoot : MonoBehaviour
         }
         return closest;
     }
-
-    private IEnumerator ShotEffect()
+        private IEnumerator ShotEffect()
     {
         gunFired.Play();
         muzzleFlash.Play();
@@ -112,4 +114,7 @@ public class RaycastShoot : MonoBehaviour
         yield return shotDuration;
         laserLine.enabled = false;
     }
+
+
+
 }
