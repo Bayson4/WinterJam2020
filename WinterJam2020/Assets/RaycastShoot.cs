@@ -49,6 +49,8 @@ public class RaycastShoot : MonoBehaviour
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
             {
                 laserLine.SetPosition(1, hit.point);
+                Debug.Log(hit.point.ToString());
+                Debug.Log(hit.normal.ToString());
                 Instantiate(bulletDestination, hit.point, Quaternion.LookRotation(hit.normal));
             }
             else
