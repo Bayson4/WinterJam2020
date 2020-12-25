@@ -49,17 +49,18 @@ public class aimove : MonoBehaviour
         {
             if (aim == posA)
                 aim = posB;
-            else if (aim == posB && direction)
+            else if ((aim == posB && direction) || (aim == posD))
                 aim = posC;
-            else if (aim == posC && direction)
+            else if (aim == posC && direction && posD!=Vector3.zero)
             {
                 aim = posD;
                 direction = false;
             }
-            else if (aim == posD)
-                aim = posC;
-            else if (aim == posC && !direction)
+            else if ((aim == posC && direction && posD == Vector3.zero) || (aim == posC && !direction))
+            {
                 aim = posB;
+                direction = false;
+            }
             else if (aim == posB && !direction)
             {
                 aim = posA;
@@ -95,7 +96,7 @@ public class aimove : MonoBehaviour
 
     void Engage()
     {
-        this.transform.LookAt(playerPos);
+        this.transform.LookAt(new Vector3(playerPos.x, this.transform.position.y, playerPos.z));
         this.transform.Translate(Vector3.forward * Time.deltaTime);
         Terminate();
     }
