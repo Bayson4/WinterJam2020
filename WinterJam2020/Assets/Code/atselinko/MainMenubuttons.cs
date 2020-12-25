@@ -9,6 +9,7 @@ public class MainMenubuttons : MonoBehaviour
     public void NewGame()
     {
         SceneManager.LoadScene(1);
+        Debug.Log("Quit");
     }
 
 
