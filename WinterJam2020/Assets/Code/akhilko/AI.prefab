@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 2562454455832966643}
   - component: {fileID: 2562454455832966647}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: AI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,4 +212,4 @@ MonoBehaviour:
   distance: 0
   distToTarget: 0
   playerPos: {x: 0, y: 0, z: 0}
-  bullet: {fileID: 3271983464589833285, guid: 5670ff98a7ace4747a33d5ca5fac2df8, type: 3}
+  bullet: {fileID: 8520886446972596443, guid: ca77572b2610dfb46beb8fb8029876a2, type: 3}

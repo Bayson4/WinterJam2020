@@ -28,7 +28,7 @@ public class aimove : MonoBehaviour
         posA = this.transform.position;
         this.transform.LookAt(posB);
         aim = posB;
-        Dummy = GameObject.Find("DummyPlayer");
+        Dummy = GameObject.FindGameObjectWithTag("Player");
         playerPos = Dummy.transform.position;
         fireRate = 1f;
         nextFire = Time.time;
